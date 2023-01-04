@@ -2,20 +2,25 @@ pipeline {
   agent any
 
   stages {
-    mvnHome = tool name: 'Maven3', type: 'maven'
     stage ('Compile') {
       steps {
-        sh "${mvnHome}/bin/mvn clean"
+        withMaven(maven : 'Maven3'){
+        bat'mvn clean'
+        }
       }
     }
     stage ('Test') {
       steps {
-        sh "${mvnHome}/bin/mvn test"
+        withMaven(maven : 'Maven3'){
+        bat'mvn test'
+        }
       }
     }
     stage ('Build') {
       steps {
-        sh "${mvnHome}/bin/mvn install"
+        withMaven(maven : 'Maven3'){
+        bat'mvn install'
+        }
       }
     }
   }
